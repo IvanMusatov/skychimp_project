@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Список всех рассылок</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Заголовок</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for newsletter in newsletters %}
+            <tr>
+                <td>{{ newsletter.title }}</td>
+                <td>{{ newsletter.status }}</td>
+                <td>
+                    {% if newsletter.status == 'active' %}
+                    <a href="{% url 'disable_newsletter' newsletter.id %}" class="btn btn-danger">Отключить</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

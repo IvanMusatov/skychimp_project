@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Добро пожаловать на главную страницу</h1>
+
+    {% load cache %}
+
+    {% cache 600 home_page_stats %}  {# Кешировать на 10 минут (время в секундах) #}
+    <div class="stats">
+        <p>Количество рассылок всего: {{ total_newsletters }}</p>
+        <p>Количество активных рассылок: {{ active_newsletters }}</p>
+        <p>Количество уникальных клиентов: {{ unique_clients }}</p>
+    </div>
+    {% endcache %}
+
+    {% cache 600 home_page_random_posts %}
+    <div class="random-posts">
+        {% for post in random_posts %}
+            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            <p>{{ post.summary }}</p>
+        {% endfor %}
+    </div>
+    {% endcache %}
+{% endblock %}

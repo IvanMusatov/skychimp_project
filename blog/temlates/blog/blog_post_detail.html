@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <article>
+    <h1>{{ post.title }}</h1>
+    <p>Дата публикации: {{ post.pub_date }}</p>
+    <p>Количество просмотров: {{ post.views }}</p>
+    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    <p>{{ post.content }}</p>
+  </article>
+{% endblock %}

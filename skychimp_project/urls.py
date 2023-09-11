@@ -19,7 +19,10 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.conf import settings
+from blog import views as blog_views
+
 urlpatterns = [
+                  path('', blog_views.home, name='blog_home'),
                   path('admin/', admin.site.urls),
                   path('', include('newsletters.urls'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
