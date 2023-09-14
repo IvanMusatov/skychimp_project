@@ -18,6 +18,9 @@ class Newsletter(models.Model):
         ('daily', 'Ежедневно'),
         ('weekly', 'Еженедельно'),
         ('monthly', 'Ежемесячно'),
+        ('created', 'Создана'),
+        ('started', 'Запущена'),
+        ('sent', 'Отправлена'),
     ]
 
     user = models.ForeignKey(

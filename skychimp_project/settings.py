@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -117,3 +118,44 @@ CRON_CLASSES = [
 ]
 
 AUTH_USER_MODEL = 'newsletters.CustomUser'
+
+# Настройки логирования
+LOGGING_DIR = os.path.join(BASE_DIR, 'logs')  # Директория для хранения логов
+if not os.path.exists(LOGGING_DIR):
+    os.makedirs(LOGGING_DIR)
+
+LOGGING_LEVEL = 'DEBUG' if DEBUG else 'INFO'  # Уровень логирования
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': LOGGING_LEVEL,
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'django.log'),  # Файл логов
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': LOGGING_LEVEL,
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': LOGGING_LEVEL,
+            'propagate': True,
+        },
+    },
+}
